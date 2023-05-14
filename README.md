@@ -8,10 +8,10 @@ sudo apt-get install gnome-screenshot tesseract-ocr xclip zenity
 ## Instalación
 ```bash
 chmod +x gnome-screenshot-text-extraction
-sudo mv gnome-screenshot-text-extraction /usr/share/bin
+sudo mv gnome-screenshot-text-extraction /usr/local/bin
 sudo mv gnome-screenshot-text-extraction.desktop /usr/share/applications
 ```
-## uso
+## uso en terminal
 ```bash
 gnome-screenshot-text-extraction
 ```
