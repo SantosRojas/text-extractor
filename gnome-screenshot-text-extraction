@@ -12,8 +12,9 @@ gnome-screenshot -a -f /tmp/screenshot.png || show_error_dialog "Error: no se pu
 tesseract /tmp/screenshot.png /tmp/extracted_text || show_error_dialog "Error: no se pudo extraer texto de la imagen."
 
 # Copiar el texto extraído al portapapeles
-xclip -selection clipboard /tmp/extracted_text.txt || show_error_dialog "Error: no se pudo copiar el texto al portapapeles."
+cat /tmp/extracted_text.txt | wl-copy || show_error_dialog "Error: no se pudo copiar el texto al portapapeles."
 
 # Limpiar los archivos temporales
 rm /tmp/screenshot.png || show_error_dialog "Error: no se pudo eliminar el archivo de captura de pantalla."
 rm /tmp/extracted_text.txt || show_error_dialog "Error: no se pudo eliminar el archivo de texto extraído."
+
