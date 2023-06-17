@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=GNOME Screenshot with Text Extraction
-Exec=gnome-screenshot-text-extraction %f
-Icon=/ruta/a/tu/icono o utilizar accessories-screenshot
-Terminal=false
-Categories=GTK;GNOME;Utility;
-Type=Application
