@@ -1,29 +1,19 @@
 #!/bin/bash
 
-# Tomar una captura de pantalla de una porción seleccionada de la pantalla y guardarla como un archivo de imagen
-if gnome-screenshot -a -f /tmp/screenshot.png; then
-    # Extraer texto de la imagen utilizando Tesseract
-    if tesseract /tmp/screenshot.png /tmp/extracted_text; then
-        # Copiar el texto extraído al portapapeles
-        if xclip -selection clipboard /tmp/extracted_text.txt; then
-            zenity --info --text "Texto extraído correctamente y copiado al portapapeles."
-        else
-            zenity --error --text "Error: no se pudo copiar el texto al portapapeles."
-            exit 1
-        fi
-    else
-        zenity --error --text "Error: no se pudo extraer texto de la imagen."
-        exit 1
-    fi
-else
-    zenity --error --text "Error: no se pudo tomar la captura de pantalla."
-    exit 1
-fi
-
-# Limpiar los archivos temporales
-rm /tmp/screenshot.png
-rm /tmp/extracted_text.txt || {
-    zenity --error --text "Error: no se pudo eliminar el archivo de texto extraído."
+function show_error_dialog {
+    zenity --error --text "$1"
     exit 1
 }
 
+# Tomar una captura de pantalla de una porción seleccionada de la pantalla y guardarla como un archivo de imagen
+gnome-screenshot -a -f /tmp/screenshot.png || show_error_dialog "Error: no se pudo tomar la captura de pantalla."
+
+# Extraer texto de la imagen utilizando Tesseract
+tesseract /tmp/screenshot.png /tmp/extracted_text || show_error_dialog "Error: no se pudo extraer texto de la imagen."
+
+# Copiar el texto extraído al portapapeles
+xclip -selection clipboard /tmp/extracted_text.txt || show_error_dialog "Error: no se pudo copiar el texto al portapapeles."
+
+# Limpiar los archivos temporales
+rm /tmp/screenshot.png || show_error_dialog "Error: no se pudo eliminar el archivo de captura de pantalla."
+rm /tmp/extracted_text.txt || show_error_dialog "Error: no se pudo eliminar el archivo de texto extraído."
