@@ -1,5 +1,6 @@
 # text-extractor
 Permite extraer texto mediante una captura de pantalla en linux
+#⚠️funciona correctamente en una session de Wayland. Si desea probarlo  en X11 debe cambiar xclip por wl-copy en el archivo gstxt
 
 ## Instalación
 ```bash
